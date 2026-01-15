@@ -1,5 +1,4 @@
 let allEvents = [];
-let imageHTML = "";
 let currentEvents = [];
 
 function pickRandomFive() {
@@ -9,15 +8,43 @@ function pickRandomFive() {
 
 function render(events) {
   const list = events.map(event => {
-    // Link to the first related Wikipedia page if available
-    let content = `<strong>${event.year}</strong> — ${event.text}`;
+    let textContent = `<strong>${event.year}</strong> — ${event.text}`;
+    let imageHTML = '';
+    let linkUrl = '';
     
-    if (event.pages && event.pages[0] && event.pages[0].content_urls && event.pages[0].content_urls.desktop) {
-      const url = event.pages[0].content_urls.desktop.page;
-      content = `<a href="${url}" target="_blank" rel="noopener noreferrer">${content}</a>`;
+    // Get image and link from the event's pages
+    if (event.pages && event.pages[0]) {
+      const page = event.pages[0];
+      
+      // Get the Wikipedia page URL
+      if (page.content_urls && page.content_urls.desktop) {
+        linkUrl = page.content_urls.desktop.page;
+      }
+      
+      // Get the thumbnail image
+      if (page.thumbnail && page.thumbnail.source) {
+        imageHTML = `
+          <div class="event-image-container">
+            <img src="${page.thumbnail.source}" alt="${page.title || 'Historical image'}">
+            <button class="expand-btn" title="Expand image">+</button>
+          </div>
+        `;
+      }
     }
     
-    return `<li title="${event.text}">${content}</li>`;
+    // Wrap text in link if available
+    if (linkUrl) {
+      textContent = `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer">${textContent}</a>`;
+    }
+    
+    return `
+      <li title="${event.text}">
+        <div class="event-content">
+          <div class="event-text">${textContent}</div>
+          ${imageHTML}
+        </div>
+      </li>
+    `;
   }).join("");
 
   const today = new Date();
@@ -27,10 +54,22 @@ function render(events) {
 
   document.getElementById("content").innerHTML = `
     <h2>On this day (${dateStr})</h2>
-    ${imageHTML}
     <ul>${list}</ul>
     <small>Source: Wikipedia (CC BY-SA)</small>
   `;
+  
+  // Add expand button functionality for all images
+  const expandBtns = document.querySelectorAll(".expand-btn");
+  expandBtns.forEach(btn => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const container = btn.closest(".event-image-container");
+      container.classList.toggle("expanded");
+      btn.textContent = container.classList.contains("expanded") ? "−" : "+";
+      btn.title = container.classList.contains("expanded") ? "Collapse image" : "Expand image";
+    };
+  });
 }
 
 async function saveCurrentState() {
@@ -45,7 +84,6 @@ async function saveCurrentState() {
     
     await chrome.storage.local.set({
       [`events_${dateKey}`]: currentEvents,
-      [`image_${dateKey}`]: imageHTML,
       [`allEvents_${dateKey}`]: allEvents
     });
   } catch (error) {
@@ -57,7 +95,7 @@ async function loadSavedState() {
   try {
     if (!chrome?.storage?.local) {
       console.log("Storage API not available");
-      return { events: null, image: null, allEvents: null };
+      return { events: null, allEvents: null };
     }
     
     const today = new Date();
@@ -65,18 +103,16 @@ async function loadSavedState() {
     
     const result = await chrome.storage.local.get([
       `events_${dateKey}`,
-      `image_${dateKey}`,
       `allEvents_${dateKey}`
     ]);
     
     return {
       events: result[`events_${dateKey}`],
-      image: result[`image_${dateKey}`],
       allEvents: result[`allEvents_${dateKey}`]
     };
   } catch (error) {
     console.error("Error loading state:", error);
-    return { events: null, image: null, allEvents: null };
+    return { events: null, allEvents: null };
   }
 }
 
@@ -103,7 +139,6 @@ async function loadSavedState() {
       console.log("Using saved data");
       currentEvents = saved.events;
       allEvents = saved.allEvents;
-      imageHTML = saved.image || "";
       
       render(currentEvents);
       regenBtn.disabled = false;
@@ -124,16 +159,6 @@ async function loadSavedState() {
 
       allEvents = data.events;
       console.log("All events count:", allEvents.length);
-
-      // Optional thumbnail image
-      const withImage = allEvents.find(
-        e => e.pages && e.pages[0] && e.pages[0].thumbnail
-      );
-
-      if (withImage) {
-        imageHTML = `<img src="${withImage.pages[0].thumbnail.source}" alt="Historical image">`;
-        console.log("Image found");
-      }
 
       currentEvents = pickRandomFive();
       console.log("Current events selected:", currentEvents.length);
