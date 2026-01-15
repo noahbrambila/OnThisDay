@@ -47,20 +47,12 @@
       margin-bottom: 6px;
     }
 
-    img {
-      width: 100%;
-      max-height: 120px;
-      object-fit: cover;
-      border-radius: 6px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-      margin: 8px 0;
-    }
-
     ul {
-      padding-left: 18px;
+      padding-left: 0;
       margin: 8px 0;
       transition: opacity 0.25s ease-in-out;
       opacity: 1;
+      list-style: none;
     }
 
     ul.fade {
@@ -68,18 +60,30 @@
     }
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       font-size: 13px;
     }
 
-    li a {
+    .event-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .event-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .event-text a {
       color: var(--text-color);
       text-decoration: none;
       display: inline;
       transition: opacity 0.15s ease-in-out;
     }
 
-    li a:hover {
+    .event-text a:hover {
       opacity: 0.7;
       text-decoration: underline;
     }
@@ -88,6 +92,62 @@
       font-weight: 500;
       color: var(--subtle-text);
       margin-right: 4px;
+    }
+
+    .event-image-container {
+      position: relative;
+      flex-shrink: 0;
+      width: 80px;
+    }
+
+    .event-image-container img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: width 0.3s ease, height 0.3s ease, object-fit 0.3s ease;
+      display: block;
+    }
+
+    .event-image-container.expanded {
+      width: 200px;
+    }
+
+    .event-image-container.expanded img {
+      width: 200px;
+      height: 150px;
+      object-fit: contain;
+    }
+
+    .expand-btn {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 3px;
+      transition: background-color 0.15s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .expand-btn:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .expand-btn:focus {
+      background-color: rgba(0, 0, 0, 0.8);
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      box-shadow: none;
     }
 
     button {
