@@ -197,3 +197,16 @@ async function loadSavedState() {
     container.innerHTML = `<div class="error">Unable to load On This Day content.<br><small>${error.message}</small></div>`;
   }
 })();
+
+// Open in resizable window button
+document.getElementById("open-window").addEventListener("click", () => {
+  chrome.windows.create({
+    url: chrome.runtime.getURL("popup.html"),
+    type: "popup",
+    width: 400,
+    height: 650
+  }, () => {
+    // Close the popup after opening the new window
+    window.close();
+  });
+});
