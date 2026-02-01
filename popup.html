@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://api.wikimedia.org; img-src https: data:; style-src 'self' 'unsafe-inline';">
@@ -179,13 +179,6 @@
       transition: background-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
     }
 
-    #open-window {
-      flex: 0 0 auto;
-      width: 36px;
-      padding: 6px 8px;
-      font-size: 16px;
-    }
-
     button:hover {
       background-color: var(--button-hover);
     }
@@ -211,10 +204,9 @@
 </head>
 <body>
 
-<div id="content">Loading…</div>
+<div id="content"><span data-i18n="loading">Loading…</span></div>
 <div class="button-row">
-  <button id="regen" disabled>🔄 Regenerate</button>
-  <button id="open-window" title="Open in resizable window">⤢</button>
+  <button id="regen" disabled><span data-i18n="regenerate">🔄 Regenerate</span></button>
 </div>
 
 <script src="popup.js"></script>

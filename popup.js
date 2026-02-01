@@ -26,7 +26,7 @@ function render(events) {
         imageHTML = `
           <div class="event-image-container">
             <img src="${page.thumbnail.source}" alt="${page.title || 'Historical image'}">
-            <button class="expand-btn" title="Expand image">+</button>
+            <button class="expand-btn" title="${chrome.i18n.getMessage("expandImage")}">+</button>
           </div>
         `;
       }
@@ -48,14 +48,15 @@ function render(events) {
   }).join("");
 
   const today = new Date();
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
-  const dateStr = `${monthNames[today.getMonth()]} ${today.getDate()}`;
+  const dateStr = new Intl.DateTimeFormat(chrome.i18n.getUILanguage(), {
+    month: 'long',
+    day: 'numeric'
+  }).format(today);
 
   document.getElementById("content").innerHTML = `
-    <h2>On this day (${dateStr})</h2>
+    <h2>${chrome.i18n.getMessage("onThisDay")} (${dateStr})</h2>
     <ul>${list}</ul>
-    <small>Source: Wikipedia (CC BY-SA)</small>
+    <small>${chrome.i18n.getMessage("source")}</small>
   `;
   
   // Add expand button functionality for all images
@@ -67,7 +68,7 @@ function render(events) {
       const container = btn.closest(".event-image-container");
       container.classList.toggle("expanded");
       btn.textContent = container.classList.contains("expanded") ? "−" : "+";
-      btn.title = container.classList.contains("expanded") ? "Collapse image" : "Expand image";
+      btn.title = container.classList.contains("expanded") ? chrome.i18n.getMessage("collapseImage") : chrome.i18n.getMessage("expandImage");
     };
   });
 }
@@ -194,19 +195,6 @@ async function loadSavedState() {
   } catch (error) {
     console.error("ERROR:", error);
     console.error("Error stack:", error.stack);
-    container.innerHTML = `<div class="error">Unable to load On This Day content.<br><small>${error.message}</small></div>`;
+    container.innerHTML = `<div class="error">${chrome.i18n.getMessage("errorLoading")}<br><small>${error.message}</small></div>`;
   }
 })();
-
-// Open in resizable window button
-document.getElementById("open-window").addEventListener("click", () => {
-  chrome.windows.create({
-    url: chrome.runtime.getURL("popup.html"),
-    type: "popup",
-    width: 400,
-    height: 650
-  }, () => {
-    // Close the popup after opening the new window
-    window.close();
-  });
-});

@@ -1,0 +1,38 @@
+{
+  "extensionName": {
+    "message": "On This Day",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Daily historical events (randomized)",
+    "description": "Description of the extension"
+  },
+  "loading": {
+    "message": "Loading…",
+    "description": "Loading message shown while fetching data"
+  },
+  "onThisDay": {
+    "message": "On this day",
+    "description": "Title prefix for the date"
+  },
+  "regenerate": {
+    "message": "🔄 Regenerate",
+    "description": "Button text to regenerate events"
+  },
+  "source": {
+    "message": "Source: Wikipedia (CC BY-SA)",
+    "description": "Attribution text for Wikipedia content"
+  },
+  "expandImage": {
+    "message": "Expand image",
+    "description": "Tooltip for expanding an image"
+  },
+  "collapseImage": {
+    "message": "Collapse image",
+    "description": "Tooltip for collapsing an image"
+  },
+  "errorLoading": {
+    "message": "Unable to load On This Day content.",
+    "description": "Error message when content fails to load"
+  }
+}
