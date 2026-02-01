@@ -1,0 +1,38 @@
+{
+  "extensionName": {
+    "message": "An diesem Tag",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Tägliche historische Ereignisse (zufällig)",
+    "description": "Description of the extension"
+  },
+  "loading": {
+    "message": "Laden…",
+    "description": "Loading message shown while fetching data"
+  },
+  "onThisDay": {
+    "message": "An diesem Tag",
+    "description": "Title prefix for the date"
+  },
+  "regenerate": {
+    "message": "🔄 Neu generieren",
+    "description": "Button text to regenerate events"
+  },
+  "source": {
+    "message": "Quelle: Wikipedia (CC BY-SA)",
+    "description": "Attribution text for Wikipedia content"
+  },
+  "expandImage": {
+    "message": "Bild erweitern",
+    "description": "Tooltip for expanding an image"
+  },
+  "collapseImage": {
+    "message": "Bild reduzieren",
+    "description": "Tooltip for collapsing an image"
+  },
+  "errorLoading": {
+    "message": "Inhalt von An diesem Tag kann nicht geladen werden.",
+    "description": "Error message when content fails to load"
+  }
+}

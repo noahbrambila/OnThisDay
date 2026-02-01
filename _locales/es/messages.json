@@ -1,0 +1,38 @@
+{
+  "extensionName": {
+    "message": "En Este Día",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Eventos históricos diarios (aleatorios)",
+    "description": "Description of the extension"
+  },
+  "loading": {
+    "message": "Cargando…",
+    "description": "Loading message shown while fetching data"
+  },
+  "onThisDay": {
+    "message": "En este día",
+    "description": "Title prefix for the date"
+  },
+  "regenerate": {
+    "message": "🔄 Regenerar",
+    "description": "Button text to regenerate events"
+  },
+  "source": {
+    "message": "Fuente: Wikipedia (CC BY-SA)",
+    "description": "Attribution text for Wikipedia content"
+  },
+  "expandImage": {
+    "message": "Expandir imagen",
+    "description": "Tooltip for expanding an image"
+  },
+  "collapseImage": {
+    "message": "Contraer imagen",
+    "description": "Tooltip for collapsing an image"
+  },
+  "errorLoading": {
+    "message": "No se pudo cargar el contenido de En Este Día.",
+    "description": "Error message when content fails to load"
+  }
+}

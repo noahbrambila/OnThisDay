@@ -1,0 +1,38 @@
+{
+  "extensionName": {
+    "message": "Ce Jour-là",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Événements historiques quotidiens (aléatoires)",
+    "description": "Description of the extension"
+  },
+  "loading": {
+    "message": "Chargement…",
+    "description": "Loading message shown while fetching data"
+  },
+  "onThisDay": {
+    "message": "Ce jour-là",
+    "description": "Title prefix for the date"
+  },
+  "regenerate": {
+    "message": "🔄 Régénérer",
+    "description": "Button text to regenerate events"
+  },
+  "source": {
+    "message": "Source : Wikipédia (CC BY-SA)",
+    "description": "Attribution text for Wikipedia content"
+  },
+  "expandImage": {
+    "message": "Agrandir l'image",
+    "description": "Tooltip for expanding an image"
+  },
+  "collapseImage": {
+    "message": "Réduire l'image",
+    "description": "Tooltip for collapsing an image"
+  },
+  "errorLoading": {
+    "message": "Impossible de charger le contenu Ce Jour-là.",
+    "description": "Error message when content fails to load"
+  }
+}
